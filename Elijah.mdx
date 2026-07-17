@@ -1,0 +1,249 @@
+Hi Elijah, 
+
+I just spent some time going through your essays on "When Domain-Specific
+Models Win" and "Towards Dedicated Model Fondries" as well as Jesse's 
+investment thesis "Variant 4: Autonomy". There are a lot of thoughts
+bubbling in my head so I'm just jotting them down here to share. 
+
+We are in complete agreement with you in the view of Verifiers and RLVR and the
+market opportunities of SLM (Specifialised Language Models). So I won't preach
+to the choir. The following are things I'd like to either add to your writing
+as an appendium, or provide a different angle that hopefully expand your
+thinking in new and exciting ways.
+
+
+> Variant invests in technology that expands autonomy. We focus on ... that
+> give users more agency through increased access, knowledge, and ownership.
+
+One fact that is counter-intuitive to many people working in the AI field is
+the idea that there is no single right answer to any given problem. In finance,
+every trade is a proof where given the same market information, one person 
+wants to sell while the other seems to be sure that it is the right time to
+buy. In high performance sports, each elite player will be facing the same
+situation and come up with drastically different solution that is only optimal
+given their own training and physical faculty. 
+
+You wrote about "Inaccessible Verifiers". You mention the wet labs and 
+regulatory access as examples of this. We believe that the "ultimate" 
+Inaccessible Verifier is in everyone's head. It's the personal preferences, 
+value judgement and unique background that makes it impossuble to build 
+a "general purpose" AI that works out of the box for everyone.
+
+To us at tacit, the right end goal is to create an environment where an
+Peronsalised AI can be trained, deployed and improved at a personal level. In
+fact, one of the earliest stated goal for tacit is to facilitate individual
+flourishing. We want to see a future where the toil of doing the same thing
+again and again gets replaced by the creativity spark unleashed by this vision
+of Personalised AI.
+
+
+
+> Opportunities for domain-specific models to be competitive arise when
+> reasoning is sufficiently idiosyncratic to that domain. Here domain-specific
+> models can overcome the scale economies and convenience for users that
+> general models have.
+
+I agree about the reasoning capability is a critical piece for DSM adoption,
+but I'd argue that there are other capabilities that are equally important
+but have been overlooked by the industry at the moment. A good example is
+behaviour.
+
+The frontier models are all trained to "be helpful". This may be the right
+behaviour for many use cases but can be a wrong in others. However, in a
+patient in-take situation, it'd be a mistake to help **without** explicitly
+elicit and confirm the context of the case. For example, it is usually a good
+idea for mild sprains, strains, use pracetamol for pain or anti-inflammatory
+drugs (NSAIDs) like ibuprofen to reduce pain and swelling. However, if the
+client has a history of stomach ulcers, in third trimester of pregnancy or had
+a severe allergic reaction to NSAIDs medicines, they should NOT take the 
+medicine.
+
+Today's frontier models certainly contain these information already. But it is
+almost guaranteed to do the wrong thing because of this built-in behavior. The
+global patient intake software market is worth billions of dollars today. What
+stands between them and the frontier models are not reasoning capability but
+the right behaviour. We have shown with our healthbench result that it is
+possible to train the model to adopt a new default behavior. It costs us less
+than $40 USD to train in this new behaviour and we already have people reaching
+out to us on Linkedin.
+
+https://www.tacitintelligence.co/field-notes/trained-specialised-language-model-healthbench
+
+
+> Domain-specific models can compete along two axes: cost of inference or
+> quality of inference. Both can produce winners, but competing on quality is
+> arguably the larger opportunity because progress in many domains is
+> bottlenecked by capability, not willingness to pay.
+> ...
+> How does the tradeoff space between in-context and in-weights learning affect
+> this thesis? For example, if in-context learning is sufficient for
+> incorporating proprietary know-how into AI workflows for the vast majority of
+> scenarios, selling tokens, rather than custom, post-trained models may be
+> sufficient as well.
+
+Another axe that we find really exciting is Continuous Learning, which is only accessible
+to SLMs. 
+
+Given the training time and capex expenditure, in-context learning is acting as
+**the** way to steer models, at least for the frontier ones. I remember that
+Microsoft used to release software every year with quarterly security patches
+shipped to subscribers. Today's Frontier Models feel like that. But what an
+awful update cadence that is. SDFT/SDPO have shown how easy it is to
+continuously train a model given textual feedback. 
+https://self-distillation.github.io/user_interactions
+
+Here is a short fun demo of a coding environment that is SDPO powered:
+https://github.com/sdan/continualcode/blob/master/docs/continualcode.mp4 
+Now, imagine this experience is replicated in every software you use.
+
+Currently, most people interact with the frontier models directly. We actually
+see a future where SLMs and frontier models co-exist in parallel but
+individuals will increasingly interact with SLMs, which can "tool call" out to
+frontier models when the situation calls for it.
+
+
+
+> To date, there are two paths to winning for domain-specific models:
+> - Compete on the cost of inference
+> - Compete on quality of inference
+> As is the case across any business, the extent to which a moat can be
+> established is the extent to which it can persistently outperform, whether on
+> cost or quality. 
+
+There is a Jevons Paradox dynamic playing out here. 
+
+In our framework, the cost and the quality are actually highly aligned. I 
+mention the Recursive Decomposition process briefly in our call. Allow me expand
+it a bit more. 
+
+In a judgement-critical task like review surgery requests, the end result can
+only be the result of 3 value: `REVIEW`, `PASS` or `REJECT`. So from RLVR's
+perspective, the credit assignment is a massive headache. (I'd say borderline
+impossible given how little training data available.)
+
+By decomposing this task into hundreds of atomic facts, we observe that the
+model's reliability improves and the RLVR training effectiveness improves
+dramatically faster because of the rich high-dimensional training signal it
+receives. We also found that this approach is very sample efficiency as you 
+could imagine by now.
+
+By recursively decomposing the task, we can continue decomposing the high
+variance atomic facts until the whole system is not only performance well 
+but also very reliable. 
+
+What's unique about our approach is the inverse relationship between the
+lowering of the inference cost and the improvement of the quality of the
+inference. Particularly, we are keeping a close eye on optimising but for
+continuous batching and throughput. Speculative decoding, hand-written CUDA
+kernels, custom chips (or even FPGA) and separation of the Prefill and Decode
+phase are all advances we've seen in lowering the inference cost. We predict
+this trend to continue and we will benefit from its advancement without
+compete in that area. 
+
+
+
+> Unlike general reasoning models, the primary moat for domain-specific models
+> is not scale economies. ... So as different domains vary in these factors, so
+> do the moats of companies building within these domains, and, as a result, so
+> does their ability to sustain an advantage on quality.
+> ...
+> To overcome the discrepancy, frontier labs have deployed strategies to
+> internalize domain and professional expertise. For example, in spending
+> massive amounts on hourly wages to expert marketplaces like Mercor
+
+Mercor is fundamentally built on project and task-based training data
+(specifically expert-labeled feedback, evaluations, and RLHF) rather than
+simple skills-based data. Mercor acts as a pipeline between top AI labs (like
+OpenAI and Anthropic) and human domain experts (doctors, lawyers, programmers).
+Experts are not building "skills." Instead, they are evaluating model outputs,
+grading answers, and creating rubrics based on real-world, highly specific
+domain scenarios.
+
+As we've discussed at length in our calls. Skills and task completion are two
+very different things. One is a chef that can cook up a delicious meal with
+whatever ingredients on hand. The other is a finished meal made to spec. The
+world needs both but we are interested in the former. 
+
+For any task, there are many orthogonal skills required. When the training data
+focus on task completion, it's usually focused on a domain specific skill yet 
+overlook skills that are crucial to perform the task. The behaviour change we 
+mentioned earlier is a good example of that. 
+
+
+
+> But what they [Dedicated Model Foundaries] gain in incentive alignment, they
+> lose in a moat. If they don’t own the end models, or post-training data, they
+> can’t establish the same compounding data advantages that vertical and
+> frontier AI companies do. So where could the moat come from?
+
+The foundaries' moat will come in as platform lock-in, which reflects on architecture
+choices and hardware supports. 
+
+As a data provider looks for foundaries to parter with, we have to compare them on
+multiple dimensions, instead of only on price. Factors like **reliability** and
+**malleability** are two things we are already looking at. (We have an essay coming
+on this shortly.)
+
+For example, Nemotron 3 uses a hybrid model of Memba+Transformer. Although this
+gives their model speed advantages, great 1M context window support in a small
+model, and the thinking traces are often 30% shorter than Qwen and Gemma
+models, it's been an absolute pain to train the Memba layers. Further, during
+inference time, if we run the same request eight times, it often fails once or twice. 
+
+On the hardware side, we foresee labs will in-house many of the chip design
+tasks in order to get the most of their training/inference investment. When
+Microsoft released their MAI models, they also released the Micorosft Maia
+chips which allows them to train and inference at FP4 precision. Same for
+LongCat-Flash by meituan. They trained the model with a 100X larger embedding
+layer and in order to both train and serve inference, they developed their own
+ASIC based pods. 
+
+Even we are doing post-training work, we are clear-eyed about this trend. Our
+focus is on how to design the most effecient post-training pipeline to take
+advantage of the high-dimensional training data that we have. We plan to keep
+our training software choice neutral and open source so we can avoid platform
+lock-in. 
+
+
+> How much enterprise demand needs to be aggregated to overcome the billions of
+> dollars in CapEx gaps between challengers and today’s frontier labs? Is this
+> even feasible?
+
+Given our recent Causal Inference Engine work with some of New Zealand's
+largest enterprises, we believe that the bottleneck for billions of dollars 
+scale market adoption is no longer model's reasoning capabilities. 
+
+Instead, it's the inherent unreliability of the LLM models.
+
+Part of the reliability challenge is hallucination, which is getting worse as
+the models getting bigger, as shown by the [AA-Omniscience Hallucination Rate
+study](https://artificialanalysis.ai/evaluations/omniscience#aa-omniscience-hallucination-rate). 
+
+LeCunn raised billions of dollars on the thesis that autoregressive model 
+will eventually drown in the compounded noise as the models get bigger. His
+thesis is that only a world-model that is grounded in Physics and Real-World
+experience can solve this issue. 
+
+The ever increasing importance of harness like Claude Code, Codex or OpenClaw 
+shows that we need a layer of deterministic logic to constrain LLMs output,
+giving them a chance to retry and recover. Harness helps by giving some 
+grounding via code and verifiers but it's not a fix. 
+
+The rest of the reputation of unreliable is how easy it is to pertube the
+models' output by manipulating the input texts. We have delivered proofs where 
+over one third of the cases' result get flipped with a few
+word changes, with each case can cost the insurance company thousands to tens 
+of thousands of dollars. 
+
+The insurance industry and the entire field of Actuarial Science is proud of
+how they can "tame uncertainty" through applying probability theory and
+statistics to assess risk and calculate premiums. It is our observation of this
+cognitive dissonance between the safety of numbers and the inherent unpredictability
+of the LLMs is what bottlenecks the industry adoption.
+
+Our case study for New Zealand's Financial Markets Authority is an excellent example 
+that shows that our Causal Inference Engine is the right answer to the problem.
+We are already seeing repeated signs that today's technology is already sufficient
+and the market is ready for a generational transformation, which will happen 
+very incrementally. One workflow at a time. 
+
