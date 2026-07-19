@@ -1,41 +1,64 @@
 Hi Elijah, 
 
 I just spent some time going through your essays on "When Domain-Specific
-Models Win" and "Towards Dedicated Model Fondries" as well as Jesse's 
-investment thesis "Variant 4: Autonomy". There are a lot of thoughts
-bubbling in my head so I'm just jotting them down here to share. 
+Models Win" and "Towards Dedicated Model Foundries", as well as Jesse's
+investment thesis "Variant 4: Autonomy".
 
-We are in complete agreement with you in the view of Verifiers and RLVR and the
-market opportunities of SLM (Specifialised Language Models). So I won't preach
-to the choir. The following are things I'd like to either add to your writing
-as an appendium, or provide a different angle that hopefully expand your
-thinking in new and exciting ways.
+The purpose of this note is to share our point of view on the five open
+questions you raised in your [post about "Towards Dedicated Model
+Foundries"](https://x.com/PossibltyResult/status/2077475857845608766).
+
+We are in complete agreement with your view on verifiers and RLVR, and on the
+market opportunity for SLMs (Specialised Language Models), so I won't preach to
+the choir. Where our experience at Tacit gives us a different angle, we've laid
+it out below against each question.
 
 
-> Variant invests in technology that expands autonomy. We focus on ... that
-> give users more agency through increased access, knowledge, and ownership.
+> How much enterprise demand needs to be aggregated to overcome the billions of
+> dollars in CapEx gaps between challengers and today’s frontier labs? Is this
+> even feasible?
 
-One fact that is counter-intuitive to many people working in the AI field is
-the idea that there is no single right answer to any given problem. In finance,
-every trade is a proof where given the same market information, one person 
-wants to sell while the other seems to be sure that it is the right time to
-buy. In high performance sports, each elite player will be facing the same
-situation and come up with drastically different solution that is only optimal
-given their own training and physical faculty. 
+We believe this is feasible without matching frontier-lab CapEx. The immediate
+bottleneck to enterprise adoption is model reliability, not reasoning capability
+or access to more compute.
 
-You wrote about "Inaccessible Verifiers". You mention the wet labs and 
-regulatory access as examples of this. We believe that the "ultimate" 
-Inaccessible Verifier is in everyone's head. It's the personal preferences, 
-value judgement and unique background that makes it impossuble to build 
-a "general purpose" AI that works out of the box for everyone.
+Given our recent Causal Inference Engine work with some of New Zealand's
+largest enterprises, we believe that the bottleneck for billions of dollars 
+scale market adoption is no longer model's reasoning capabilities. 
 
-To us at tacit, the right end goal is to create an environment where an
-Peronsalised AI can be trained, deployed and improved at a personal level. In
-fact, one of the earliest stated goal for tacit is to facilitate individual
-flourishing. We want to see a future where the toil of doing the same thing
-again and again gets replaced by the creativity spark unleashed by this vision
-of Personalised AI.
+Instead, it's the inherent unreliability of the LLM models.
 
+Part of the reliability challenge is hallucination, which is getting worse as
+the models getting bigger, as shown by the [AA-Omniscience Hallucination Rate
+study](https://artificialanalysis.ai/evaluations/omniscience#aa-omniscience-hallucination-rate). 
+
+LeCunn raised billions of dollars on the thesis that autoregressive model 
+will eventually drown in the compounded noise as the models get bigger. His
+thesis is that only a world-model that is grounded in Physics and Real-World
+experience can solve this issue. 
+
+The ever increasing importance of harness like Claude Code, Codex or OpenClaw 
+shows that we need a layer of deterministic logic to constrain LLMs output,
+giving them a chance to retry and recover. Harness helps by giving some 
+grounding via code and verifiers but it's not a fix. 
+
+The rest of the reputation of unreliable is how easy it is to pertube the
+models' output by manipulating the input texts. We have delivered proofs where 
+over one third of the cases' result get flipped with a few
+word changes, with each case can cost the insurance company thousands to tens 
+of thousands of dollars. 
+
+The insurance industry and the entire field of Actuarial Science is proud of
+how they can "tame uncertainty" through applying probability theory and
+statistics to assess risk and calculate premiums. It is our observation of this
+cognitive dissonance between the safety of numbers and the inherent unpredictability
+of the LLMs is what bottlenecks the industry adoption.
+
+Our case study for New Zealand's Financial Markets Authority is an excellent example 
+that shows that our Causal Inference Engine is the right answer to the problem.
+We are already seeing repeated signs that today's technology is already sufficient
+and the market is ready for a generational transformation, which will happen 
+very incrementally. One workflow at a time. 
 
 
 > Opportunities for domain-specific models to be competitive arise when
@@ -81,6 +104,10 @@ https://www.tacitintelligence.co/field-notes/trained-specialised-language-model-
 > scenarios, selling tokens, rather than custom, post-trained models may be
 > sufficient as well.
 
+In-context learning is sufficient for occasional steering, but not for
+continuous learning. We expect SLMs to learn in their weights from feedback and
+call frontier models when they need broader capability.
+
 Another axe that we find really exciting is Continuous Learning, which is only accessible
 to SLMs. 
 
@@ -102,6 +129,13 @@ individuals will increasingly interact with SLMs, which can "tool call" out to
 frontier models when the situation calls for it.
 
 
+[What does standardization look like for Post-Training-as-a-Service? Can it
+even become sufficiently standardized as we’ve seen play out in chip design?]
+
+We think the training process can be standardised even when each domain's
+judgement cannot. Recursive Decomposition provides a common process: break tasks
+into atomic facts, train against the richer signal, and continue decomposing the
+high-variance parts.
 
 > To date, there are two paths to winning for domain-specific models:
 > - Compete on the cost of inference
@@ -141,6 +175,37 @@ this trend to continue and we will benefit from its advancement without
 compete in that area. 
 
 
+[Can or will enterprise headcount evolve around the talent needed to push more
+post-training responsibility to the edges?]
+
+Yes, but enterprises need domain experts at the edge, not full frontier-model
+teams. Their role is to turn judgement into feedback, evaluations and training
+data while the foundry supplies the training infrastructure.
+
+> Variant invests in technology that expands autonomy. We focus on ... that
+> give users more agency through increased access, knowledge, and ownership.
+
+One fact that is counter-intuitive to many people working in the AI field is
+the idea that there is no single right answer to any given problem. In finance,
+every trade is a proof where given the same market information, one person 
+wants to sell while the other seems to be sure that it is the right time to
+buy. In high performance sports, each elite player will be facing the same
+situation and come up with drastically different solution that is only optimal
+given their own training and physical faculty. 
+
+You wrote about "Inaccessible Verifiers". You mention the wet labs and 
+regulatory access as examples of this. We believe that the "ultimate" 
+Inaccessible Verifier is in everyone's head. It's the personal preferences, 
+value judgement and unique background that makes it impossuble to build 
+a "general purpose" AI that works out of the box for everyone.
+
+To us at tacit, the right end goal is to create an environment where an
+Peronsalised AI can be trained, deployed and improved at a personal level. In
+fact, one of the earliest stated goal for tacit is to facilitate individual
+flourishing. We want to see a future where the toil of doing the same thing
+again and again gets replaced by the creativity spark unleashed by this vision
+of Personalised AI.
+
 
 > Unlike general reasoning models, the primary moat for domain-specific models
 > is not scale economies. ... So as different domains vary in these factors, so
@@ -170,6 +235,13 @@ overlook skills that are crucial to perform the task. The behaviour change we
 mentioned earlier is a good example of that. 
 
 
+[Can weights remain open if “dedicated model foundries” monetize proprietary
+hosted services around post-training? Or do the weights need to also be
+proprietary for the business to be defensible?]
+
+Yes. The weights can remain open if the foundry's defensibility comes from the
+training platform: architecture choices, hardware support, reliability and
+malleability. Proprietary weights are one possible moat, not the only one.
 
 > But what they [Dedicated Model Foundaries] gain in incentive alignment, they
 > lose in a moat. If they don’t own the end models, or post-training data, they
@@ -203,47 +275,3 @@ focus is on how to design the most effecient post-training pipeline to take
 advantage of the high-dimensional training data that we have. We plan to keep
 our training software choice neutral and open source so we can avoid platform
 lock-in. 
-
-
-> How much enterprise demand needs to be aggregated to overcome the billions of
-> dollars in CapEx gaps between challengers and today’s frontier labs? Is this
-> even feasible?
-
-Given our recent Causal Inference Engine work with some of New Zealand's
-largest enterprises, we believe that the bottleneck for billions of dollars 
-scale market adoption is no longer model's reasoning capabilities. 
-
-Instead, it's the inherent unreliability of the LLM models.
-
-Part of the reliability challenge is hallucination, which is getting worse as
-the models getting bigger, as shown by the [AA-Omniscience Hallucination Rate
-study](https://artificialanalysis.ai/evaluations/omniscience#aa-omniscience-hallucination-rate). 
-
-LeCunn raised billions of dollars on the thesis that autoregressive model 
-will eventually drown in the compounded noise as the models get bigger. His
-thesis is that only a world-model that is grounded in Physics and Real-World
-experience can solve this issue. 
-
-The ever increasing importance of harness like Claude Code, Codex or OpenClaw 
-shows that we need a layer of deterministic logic to constrain LLMs output,
-giving them a chance to retry and recover. Harness helps by giving some 
-grounding via code and verifiers but it's not a fix. 
-
-The rest of the reputation of unreliable is how easy it is to pertube the
-models' output by manipulating the input texts. We have delivered proofs where 
-over one third of the cases' result get flipped with a few
-word changes, with each case can cost the insurance company thousands to tens 
-of thousands of dollars. 
-
-The insurance industry and the entire field of Actuarial Science is proud of
-how they can "tame uncertainty" through applying probability theory and
-statistics to assess risk and calculate premiums. It is our observation of this
-cognitive dissonance between the safety of numbers and the inherent unpredictability
-of the LLMs is what bottlenecks the industry adoption.
-
-Our case study for New Zealand's Financial Markets Authority is an excellent example 
-that shows that our Causal Inference Engine is the right answer to the problem.
-We are already seeing repeated signs that today's technology is already sufficient
-and the market is ready for a generational transformation, which will happen 
-very incrementally. One workflow at a time. 
-
