@@ -87,94 +87,64 @@ https://www.tacitintelligence.co/field-notes/trained-specialised-language-model-
 > scenarios, selling tokens, rather than custom, post-trained models may be
 > sufficient as well.
 
-In-context learning is sufficient for occasional steering, but not for
-continuous learning. We expect SLMs to learn in their weights from feedback and
-call frontier models when they need broader capability.
+In-context learning is essential for exploratory steering, but prone to 
+hallucination and pertubation attacks as we've mentioned above. 
+Empirically, we have found that in-weight learning is a far superior 
+approach to encode the process from the in-context learning while delivering
+a stable and reliable output in real-world production environment.
 
-Another axe that we find really exciting is Continuous Learning, which is only accessible
-to SLMs. 
-
-Given the training time and capex expenditure, in-context learning is acting as
-**the** way to steer models, at least for the frontier ones. I remember that
-Microsoft used to release software every year with quarterly security patches
-shipped to subscribers. Today's Frontier Models feel like that. But what an
-awful update cadence that is. SDFT/SDPO have shown how easy it is to
-continuously train a model given textual feedback. 
-https://self-distillation.github.io/user_interactions
-
-Here is a short fun demo of a coding environment that is SDPO powered:
-https://github.com/sdan/continualcode/blob/master/docs/continualcode.mp4 
-Now, imagine this experience is replicated in every software you use.
-
-Currently, most people interact with the frontier models directly. We actually
-see a future where SLMs and frontier models co-exist in parallel but
-individuals will increasingly interact with SLMs, which can "tool call" out to
-frontier models when the situation calls for it.
+A flywheel-style process we are recommending to our customers is to capture the
+experts' feedback as part of the in-context learning process. We then recommend
+incorporating these into the continuous learning process as priviledged context
+for [SDFT/SDPO](https://self-distillation.github.io/user_interactions) and other
+on-policy training methods. Here is a short fun demo of a [coding environment
+that is SDPO
+powered](https://github.com/sdan/continualcode/blob/master/docs/continualcode.mp4),
+imagine this experience is replicated in every software you use.
 
 
-[What does standardization look like for Post-Training-as-a-Service? Can it
-even become sufficiently standardized as we’ve seen play out in chip design?]
+> What does standardization look like for Post-Training-as-a-Service? Can it
+> even become sufficiently standardized as we’ve seen play out in chip design?
 
-We think the training process can be standardised even when each domain's
-judgement cannot. Recursive Decomposition provides a common process: break tasks
-into atomic facts, train against the richer signal, and continue decomposing the
-high-variance parts.
+We believe there is a standardization story here that will increasinly be 
+driven by the shape of data/training signal.
 
-> To date, there are two paths to winning for domain-specific models:
-> - Compete on the cost of inference
-> - Compete on quality of inference
-> As is the case across any business, the extent to which a moat can be
-> established is the extent to which it can persistently outperform, whether on
-> cost or quality. 
+For general LLM computing, the standardisation will increasingly concentrate at
+the API level. For example, HuggingFace's `trl` and Thinking Machine Lab's
+`tinker` both offer PPO and CISPO as an API call. What differentiates one
+offering to another is no longer the compute or algorithm, but the training
+data and the judgement behind these data.
 
-There is a Jevons Paradox dynamic playing out here. 
+Once the post-training infrastructure is sufficiently commoditised, 
+the value will naturally gravitate towards where it was created and where it
+should rightly remain: the enterprises themselves. Tacit's strategic goal is to
+become the infrastructure that enterprises use to capture and deliver 
+the expert judgements.
 
-In our framework, the cost and the quality are actually highly aligned. I 
-mention the Recursive Decomposition process briefly in our call. Allow me expand
-it a bit more. 
-
-In a judgement-critical task like review surgery requests, the end result can
-only be the result of 3 value: `REVIEW`, `PASS` or `REJECT`. So from RLVR's
-perspective, the credit assignment is a massive headache. (I'd say borderline
-impossible given how little training data available.)
-
-By decomposing this task into hundreds of atomic facts, we observe that the
-model's reliability improves and the RLVR training effectiveness improves
-dramatically faster because of the rich high-dimensional training signal it
-receives. We also found that this approach is very sample efficiency as you 
-could imagine by now.
-
-By recursively decomposing the task, we can continue decomposing the high
-variance atomic facts until the whole system is not only performance well 
-but also very reliable. 
-
-What's unique about our approach is the inverse relationship between the
-lowering of the inference cost and the improvement of the quality of the
-inference. Particularly, we are keeping a close eye on optimising but for
-continuous batching and throughput. Speculative decoding, hand-written CUDA
-kernels, custom chips (or even FPGA) and separation of the Prefill and Decode
-phase are all advances we've seen in lowering the inference cost. We predict
-this trend to continue and we will benefit from its advancement without
-compete in that area. 
+As an interesting thought experiment, once we embrace this atomic unit of LLM
+inference idea, we can significantly improve both the inference and
+post-training performance through, literally, hardware engineering of AI ASICs
+and specialised chips. In the FMA case, instead of post-training a general
+purpose LLM, we only need to post-train 8 several order-of-magnitude smaller
+Specialised Language Models (SLM) where the end result can only be the result
+of 3 value: `REVIEW`, `PASS` or `REJECT`. A back-of-envelop calculation
+actually suggests that this is reasonably doable for under $1M budget. [3]
 
 
-[Can or will enterprise headcount evolve around the talent needed to push more
-post-training responsibility to the edges?]
 
-Yes, but enterprises need domain experts at the edge, not full frontier-model
-teams. Their role is to turn judgement into feedback, evaluations and training
-data while the foundry supplies the training infrastructure.
+> Can or will enterprise headcount evolve around the talent needed to push 
+> more post-training responsibility to the edges?
 
-> Variant invests in technology that expands autonomy. We focus on ... that
-> give users more agency through increased access, knowledge, and ownership.
+Yes, with continuous learning, enterprises need domain experts operate at the
+edge. Their role is to turn judgement into feedback while the foundry churns
+out the models on a regular cadence. Instead of a model release cycle every 6-9
+months, the updates to the Causal Inference Graph will be constant and backward
+compatible so releases will be daily if not more often. 
 
 One fact that is counter-intuitive to many people working in the AI field is
-the idea that there is no single right answer to any given problem. In finance,
-every trade is a proof where given the same market information, one person 
-wants to sell while the other seems to be sure that it is the right time to
-buy. In high performance sports, each elite player will be facing the same
-situation and come up with drastically different solution that is only optimal
-given their own training and physical faculty. 
+that there is no single right answer to many real-world problems. In the 
+financial market, every trade is a proof that two people can reach opposite 
+conclusion given the same piece of information.
 
 You wrote about "Inaccessible Verifiers". You mention the wet labs and 
 regulatory access as examples of this. We believe that the "ultimate" 
@@ -182,12 +152,6 @@ Inaccessible Verifier is in everyone's head. It's the personal preferences,
 value judgement and unique background that makes it impossuble to build 
 a "general purpose" AI that works out of the box for everyone.
 
-To us at tacit, the right end goal is to create an environment where an
-Peronsalised AI can be trained, deployed and improved at a personal level. In
-fact, one of the earliest stated goal for tacit is to facilitate individual
-flourishing. We want to see a future where the toil of doing the same thing
-again and again gets replaced by the creativity spark unleashed by this vision
-of Personalised AI.
 
 
 > Unlike general reasoning models, the primary moat for domain-specific models
@@ -272,3 +236,15 @@ allergic reaction to NSAIDs medicines, they should NOT take the medicine. If an
 inadequate in-take interview misses any of the key criteria, a simple case
 might balloon into a far more complicated and costly headache.
 
+[3]: I worked with Codex on some back of the envelop calculation for a Hybrid
+LoRA-Capable ASIC design. 
+
+* The base model weight is stored in hardwired RRAM/NVM (instead of VRAM/HBM)
+* The LoRA adapters, multi-tenant scheduling, in on-chip configurable SRAM where 
+  the back-propogation happens and the gradient changes will be stored
+  (instead of the VRAM/HBM again as they are the industry's bottleneck.)
+* There will be ultra-low latency (near-zero adapter overhead) for inference
+* Very low energy consumption <10W (instead of 300W to 700W for a Nvidia chip).
+* FPGA Emulation on high-end FPGAs like AMD-Xilinx Versal will cost about 
+  3-6 Months for $200k to prove the hybrid design.
+* A full production run of 250k will likely cost $15-50M with 1.5-2 years.
