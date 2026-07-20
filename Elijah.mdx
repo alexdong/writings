@@ -8,57 +8,49 @@ The purpose of this note is to share our point of view on the five open
 questions you raised in your [post about "Towards Dedicated Model
 Foundries"](https://x.com/PossibltyResult/status/2077475857845608766).
 
-We are in complete agreement with your view on verifiers and RLVR, and on the
-market opportunity for SLMs (Specialised Language Models), so I won't preach to
-the choir. Where our experience at Tacit gives us a different angle, we've laid
-it out below against each question.
+Since we are in complete agreement with your view on verifiers and RLVR, and on
+the market opportunity for SLMs (Specialised Language Models), I won't preach
+to the choir. Where our experience at Tacit gives us a different angle, we've
+laid it out below against each question.
 
 
 > How much enterprise demand needs to be aggregated to overcome the billions of
 > dollars in CapEx gaps between challengers and today’s frontier labs? Is this
 > even feasible?
 
-We believe this is feasible without matching frontier-lab CapEx. The immediate
-bottleneck to enterprise adoption is model reliability, not reasoning capability
-or access to more compute.
+The assumption you are making here is that in order to deliver value to
+enterprise, there needs to be an equivalent CapEx for a Modal Founday to
+develop or post-train a model with similar capabilities.
 
-Given our recent Causal Inference Engine work with some of New Zealand's
-largest enterprises, we believe that the bottleneck for billions of dollars 
-scale market adoption is no longer model's reasoning capabilities. 
+We believe this is already feasible without matching frontier-lab CapEx. Based
+on our experience working with large enterprise customers, the immediate
+bottleneck to enterprise adoption is **model reliability**, not reasoning
+capability or access to more compute.
 
-Instead, it's the inherent unreliability of the LLM models.
+A main part of the reliability challenge is hallucination, which is actually
+getting worse as the models getting bigger, as shown by the [AA-Omniscience
+Hallucination Rate
+study](https://artificialanalysis.ai/evaluations/omniscience#aa-omniscience-hallucination-rate). [1]
 
-Part of the reliability challenge is hallucination, which is getting worse as
-the models getting bigger, as shown by the [AA-Omniscience Hallucination Rate
-study](https://artificialanalysis.ai/evaluations/omniscience#aa-omniscience-hallucination-rate). 
-
-LeCunn raised billions of dollars on the thesis that autoregressive model 
-will eventually drown in the compounded noise as the models get bigger. His
-thesis is that only a world-model that is grounded in Physics and Real-World
-experience can solve this issue. 
-
-The ever increasing importance of harness like Claude Code, Codex or OpenClaw 
-shows that we need a layer of deterministic logic to constrain LLMs output,
-giving them a chance to retry and recover. Harness helps by giving some 
-grounding via code and verifiers but it's not a fix. 
-
-The rest of the reputation of unreliable is how easy it is to pertube the
-models' output by manipulating the input texts. We have delivered proofs where 
-over one third of the cases' result get flipped with a few
-word changes, with each case can cost the insurance company thousands to tens 
-of thousands of dollars. 
+Another aspect of this unreliability is how easy it is to pertube the
+models' output through a manipulation to the input prompts. We have delivered
+proofs where over one third of surgery triage outcome gets flipped via a few simple word
+changes, where each case can cost an insurance company thousands to tens of
+thousands of dollars. 
 
 The insurance industry and the entire field of Actuarial Science is proud of
 how they can "tame uncertainty" through applying probability theory and
-statistics to assess risk and calculate premiums. It is our observation of this
-cognitive dissonance between the safety of numbers and the inherent unpredictability
-of the LLMs is what bottlenecks the industry adoption.
+statistics to assess risk and calculate premiums. It is our observation that 
+the reliability challenge creates a cognitive dissonance that blocks the industry
+from adopting LLM. 
 
-Our case study for New Zealand's Financial Markets Authority is an excellent example 
-that shows that our Causal Inference Engine is the right answer to the problem.
-We are already seeing repeated signs that today's technology is already sufficient
-and the market is ready for a generational transformation, which will happen 
-very incrementally. One workflow at a time. 
+We are already seeing repeated signals that today's LLM is already sufficient.
+The enterprise market is ready for a generational transformation, which will
+happen very incrementally. One workflow at a time. 
+
+Our case study for New Zealand's Financial Markets Authority (FMA) is an
+excellent example that shows that our Causal Inference Engine is the right
+answer to solve the reliability problem for enterprises.
 
 
 > Opportunities for domain-specific models to be competitive arise when
@@ -66,38 +58,29 @@ very incrementally. One workflow at a time.
 > models can overcome the scale economies and convenience for users that
 > general models have.
 
-I agree about the reasoning capability is a critical piece for DSM adoption,
-but I'd argue that there are other capabilities that are equally important
-but have been overlooked by the industry at the moment. A good example is
-behaviour.
+We agree about the reasoning capability is a critical piece for adoption, but
+we'd argue that there are other capabilities that are equally important but
+have been overlooked by the industry. In an enterprise deployment context,
+where the LLMs are increasingly deployed alongside a human operator, ignoring
+these capabilities is leaving a lot on the table.
+
+A good example is behaviour.
 
 The frontier models are all trained to "be helpful". This may be the right
-behaviour for many use cases but can be a wrong in others. However, in a
-patient in-take situation, it'd be a mistake to help **without** explicitly
-elicit and confirm the context of the case. For example, it is usually a good
-idea for mild sprains, strains, use pracetamol for pain or anti-inflammatory
-drugs (NSAIDs) like ibuprofen to reduce pain and swelling. However, if the
-client has a history of stomach ulcers, in third trimester of pregnancy or had
-a severe allergic reaction to NSAIDs medicines, they should NOT take the 
-medicine.
+behaviour for many use cases but can be wrong in others. For example, in a
+patient in-take situation, it'd be a mistake to help **without** 
+elicit and confirm the context of the case first. [2]
 
-Today's frontier models certainly contain these information already. But it is
-almost guaranteed to do the wrong thing because of this built-in behavior. The
-global patient intake software market is worth billions of dollars today. What
-stands between them and the frontier models are not reasoning capability but
-the right behaviour. We have shown with our healthbench result that it is
-possible to train the model to adopt a new default behavior. It costs us less
-than $40 USD to train in this new behaviour and we already have people reaching
-out to us on Linkedin.
+Today's frontier models already contain these information. But they are  
+almost guaranteed to do the wrong thing because of this built-in behavior. 
+In fact, we have established that the bigger the models are, the more likely
+for them to jump to a conclusion despite being asked to seek context first. 
 
+We have shown with our healthbench result that it is possible to train the
+model to adopt a new default behavior with $40 USD training budget.
 https://www.tacitintelligence.co/field-notes/trained-specialised-language-model-healthbench
 
 
-> Domain-specific models can compete along two axes: cost of inference or
-> quality of inference. Both can produce winners, but competing on quality is
-> arguably the larger opportunity because progress in many domains is
-> bottlenecked by capability, not willingness to pay.
-> ...
 > How does the tradeoff space between in-context and in-weights learning affect
 > this thesis? For example, if in-context learning is sufficient for
 > incorporating proprietary know-how into AI workflows for the vast majority of
@@ -275,3 +258,17 @@ focus is on how to design the most effecient post-training pipeline to take
 advantage of the high-dimensional training data that we have. We plan to keep
 our training software choice neutral and open source so we can avoid platform
 lock-in. 
+
+[1]: The ever increasing importance of harness like Claude Code, Codex or OpenClaw 
+shows that we need a layer of deterministic logic to constrain LLMs output,
+giving them a chance to retry and recover. Harness helps by giving some 
+grounding via code and verifiers but it's not a fix. 
+
+[2]: For example, it is usually a good idea, when treating mild
+sprains/strains, use pracetamol for pain or anti-inflammatory drugs (NSAIDs)
+like ibuprofen to reduce pain and swelling. However, if the client has a
+history of stomach ulcers, in third trimester of pregnancy or had a severe
+allergic reaction to NSAIDs medicines, they should NOT take the medicine. If an
+inadequate in-take interview misses any of the key criteria, a simple case
+might balloon into a far more complicated and costly headache.
+
