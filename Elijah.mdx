@@ -153,75 +153,29 @@ value judgement and unique background that makes it impossuble to build
 a "general purpose" AI that works out of the box for everyone.
 
 
+> Can weights remain open if “dedicated model foundries” monetize proprietary
+> hosted services around post-training? Or do the weights need to also be
+> proprietary for the business to be defensible?
 
-> Unlike general reasoning models, the primary moat for domain-specific models
-> is not scale economies. ... So as different domains vary in these factors, so
-> do the moats of companies building within these domains, and, as a result, so
-> does their ability to sustain an advantage on quality.
-> ...
-> To overcome the discrepancy, frontier labs have deployed strategies to
-> internalize domain and professional expertise. For example, in spending
-> massive amounts on hourly wages to expert marketplaces like Mercor
+Whether the weights produced by the dedicated model foundries remain open or
+closed is likely to become irrelevant as enterprises adopt LLMs into their
+workflows. 
 
-Mercor is fundamentally built on project and task-based training data
-(specifically expert-labeled feedback, evaluations, and RLHF) rather than
-simple skills-based data. Mercor acts as a pipeline between top AI labs (like
-OpenAI and Anthropic) and human domain experts (doctors, lawyers, programmers).
-Experts are not building "skills." Instead, they are evaluating model outputs,
-grading answers, and creating rubrics based on real-world, highly specific
-domain scenarios.
+Since the the post-training weight for an SLM is a compressed artefact of
+the expert judgement encoded into the training dataset, the weight will be of 
+very low value or even detrimental to others.
 
-As we've discussed at length in our calls. Skills and task completion are two
-very different things. One is a chef that can cook up a delicious meal with
-whatever ingredients on hand. The other is a finished meal made to spec. The
-world needs both but we are interested in the former. 
+For example, vehicle insurance is a transactional, commoditized product driven
+by statistical data (e.g., make, model, driving record) and governed by annual
+renewals. In contrast, life insurance is a consultative, emotionally-driven
+product requiring deep trust, personal disclosure, and long-term planning.
 
-For any task, there are many orthogonal skills required. When the training data
-focus on task completion, it's usually focused on a domain specific skill yet 
-overlook skills that are crucial to perform the task. The behaviour change we 
-mentioned earlier is a good example of that. 
+It would be a mistake to use weights trained for vehicle insurance's customer
+support in the life insurance settings. Further, the weights for one life
+insurance salesperson will eventually be so tied to that individual's
+personal identity, preference and disposition that it is essentially
+counter-productive for someone else to use those weights.
 
-
-[Can weights remain open if “dedicated model foundries” monetize proprietary
-hosted services around post-training? Or do the weights need to also be
-proprietary for the business to be defensible?]
-
-Yes. The weights can remain open if the foundry's defensibility comes from the
-training platform: architecture choices, hardware support, reliability and
-malleability. Proprietary weights are one possible moat, not the only one.
-
-> But what they [Dedicated Model Foundaries] gain in incentive alignment, they
-> lose in a moat. If they don’t own the end models, or post-training data, they
-> can’t establish the same compounding data advantages that vertical and
-> frontier AI companies do. So where could the moat come from?
-
-The foundaries' moat will come in as platform lock-in, which reflects on architecture
-choices and hardware supports. 
-
-As a data provider looks for foundaries to parter with, we have to compare them on
-multiple dimensions, instead of only on price. Factors like **reliability** and
-**malleability** are two things we are already looking at. (We have an essay coming
-on this shortly.)
-
-For example, Nemotron 3 uses a hybrid model of Memba+Transformer. Although this
-gives their model speed advantages, great 1M context window support in a small
-model, and the thinking traces are often 30% shorter than Qwen and Gemma
-models, it's been an absolute pain to train the Memba layers. Further, during
-inference time, if we run the same request eight times, it often fails once or twice. 
-
-On the hardware side, we foresee labs will in-house many of the chip design
-tasks in order to get the most of their training/inference investment. When
-Microsoft released their MAI models, they also released the Micorosft Maia
-chips which allows them to train and inference at FP4 precision. Same for
-LongCat-Flash by meituan. They trained the model with a 100X larger embedding
-layer and in order to both train and serve inference, they developed their own
-ASIC based pods. 
-
-Even we are doing post-training work, we are clear-eyed about this trend. Our
-focus is on how to design the most effecient post-training pipeline to take
-advantage of the high-dimensional training data that we have. We plan to keep
-our training software choice neutral and open source so we can avoid platform
-lock-in. 
 
 [1]: The ever increasing importance of harness like Claude Code, Codex or OpenClaw 
 shows that we need a layer of deterministic logic to constrain LLMs output,
